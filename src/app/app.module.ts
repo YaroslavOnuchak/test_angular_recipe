@@ -29,9 +29,10 @@ import { ResipeEditComponent } from './recipes/resipe-edit/resipe-edit.component
     ShoppingEditComponent,
     DropdownDirective,
     ResipeStartComponent,
-    ResipeEditComponent
+    ResipeEditComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule
