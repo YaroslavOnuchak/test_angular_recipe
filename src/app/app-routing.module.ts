@@ -5,14 +5,21 @@ import {ShoppingListComponent} from "./shopping-list/shopping-list.component";
 import {RecipeDetailComponent} from "./recipes/recipe-detail/recipe-detail.component";
 import {ResipeStartComponent} from "./recipes/resipe-start/resipe-start.component";
 import {ResipeEditComponent} from "./recipes/resipe-edit/resipe-edit.component";
+import {RecipesResolverServise} from "./shared/recipes-resolver.servise";
 
 const routes: Routes = [
   {path: 'recipes', component: RecipesComponent,
   children:[
     {path:'', component:ResipeStartComponent},
     {path:'new', component:ResipeEditComponent},
-    {path:':id', component:RecipeDetailComponent},
-    {path:':id/edit', component:ResipeEditComponent},
+    {
+      path:':id', component:RecipeDetailComponent,
+      resolve:[RecipesResolverServise]
+    },
+    {
+      path:':id/edit', component:ResipeEditComponent,
+      resolve:[RecipesResolverServise]
+    },
   ]
   },
   {path: 'shopping', component: ShoppingListComponent},

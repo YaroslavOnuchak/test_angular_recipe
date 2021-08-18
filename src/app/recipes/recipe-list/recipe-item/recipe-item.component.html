@@ -1,18 +1,21 @@
 <a
-  class="list-group-item clearfix"
+  class="list-group-item clearfix d-flex justify-content-between align-items-center"
   style="cursor: pointer"
   [routerLink]="[index]"
   routerLinkActive="active"
- >
-  <div class="pull-left">
+>
+  <div class="pull-left" style="width: 70%;">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
     <p class="list-group-item-text">{{ recipe.description }}</p>
   </div>
-  <span class="pull-right">
+
         <img
           [src]="recipe.imagePath"
           alt="{{ recipe.name }}"
           class="img-responsive"
-          style="max-height: 50px; object-fit: cover">
-      </span>
-</a>
+          style="max-height: 50px;
+          object-fit: cover;
+          border-radius: 1rem;
+              aspect-ratio: 1/1;
+          filter: drop-shadow(0px 0px 1rem #8B0000FF)">
+      </a>

@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+a.list-group-item {
+  overflow: hidden;
+
+  &.active {
+    border-color: #ffffff;
+    color: #fff !important;
+    background: #D8BFD8FF !important;
+  }
+
+  &:hover {
+    color: #000000;
+    border-color: #D8BFD8FF;
+    background: rgba(217, 206, 169, 0.42);
+  }
+}
+
+button.btn-primary {
+  background: #A9D9D2;
+  border: none;
+
+  &:hover, &:active, &:focus, &:visited , &:active:hover{
+    background: #748C89;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+}
+.unselectable {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}

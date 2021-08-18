@@ -7,8 +7,11 @@ import { DataStorageServiseService } from "../shared/data-storage-servise.servic
 })
 export class HeaderComponent {
   constructor(private dataService: DataStorageServiseService) {}
-  
+
   onSave() {
     this.dataService.setDataRecipes();
+  }
+  onFetchData(){
+    this.dataService.fetchDataRecips().subscribe()
   }
 }
