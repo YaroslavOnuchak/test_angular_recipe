@@ -17,6 +17,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ResipeStartComponent } from "./recipes/resipe-start/resipe-start.component";
 import { ResipeEditComponent } from "./recipes/resipe-edit/resipe-edit.component";
 import { ShopService } from "./core/services/RecipeShop/recipe-shop.service";
+import { DataStorageServiseService } from "./shared/data-storage-servise.service";
+
+import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
   declarations: [
@@ -38,8 +41,9 @@ import { ShopService } from "./core/services/RecipeShop/recipe-shop.service";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [RecipeServiseService, ShopService],
+  providers: [RecipeServiseService, ShopService, DataStorageServiseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

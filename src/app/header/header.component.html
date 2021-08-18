@@ -15,8 +15,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a style="cursor: pointer" class="nav-link dropdown-toggle" appDropdown role="button">Manage <span class="caret"></span></a>
-          <ul class="dropdown-menu" appDropdown>
-            <li><a class="dropdown-item"style="cursor: pointer">Save Data</a></li>
+          <ul class="dropdown-menu" >
+            <li><a class="dropdown-item"style="cursor: pointer" (click)="onSave()">Save Data</a></li>
             <li><a class="dropdown-item" style="cursor: pointer">Fetch Data</a></li>
           </ul>
         </li>

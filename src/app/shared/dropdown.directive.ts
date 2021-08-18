@@ -13,7 +13,7 @@ export class DropdownDirective {
   @HostListener('click') toggleOpen() {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
-      this.render.addClass(this.render.nextSibling(this.elRef.nativeElement), 'show')
+      this.render?.addClass(this.render.nextSibling(this.elRef.nativeElement), 'show')
     } else {
       this.render.removeClass(this.render.nextSibling(this.elRef.nativeElement), 'show')
     }
