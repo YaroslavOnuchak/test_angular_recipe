@@ -52,7 +52,9 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" formArrayName="ingrediends" style="overflow-x: hidden;max-height: 10rem">
+          <div class="form-group"
+               formArrayName="ingrediends"
+               style="overflow-x: hidden;max-height: 10rem">
             <div
               *ngFor="let ingrediend of ingrediendsListArray.controls; let i = index">
               <div class="row my-2" [formGroupName]="i">
