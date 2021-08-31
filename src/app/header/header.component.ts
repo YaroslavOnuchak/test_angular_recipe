@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Output } from "@angular/core";
+import { EventEmitter } from "@angular/core";
 import { DataStorageServiseService } from "../shared/data-storage-servise.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -7,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: "./header.component.html",
 })
 export class HeaderComponent {
+ @Output() back = new  EventEmitter<any>()z
   //neww
   constructor(
     private dataService: DataStorageServiseService,
