@@ -8,7 +8,8 @@ import { DataStorageServiseService } from "../shared/data-storage-servise.servic
 })
 export class HeaderComponent {
  @Output() back = new  EventEmitter<any>()
-  constructor(private dataService: DataStorageServiseService) {}
+  constructor(
+    private dataService: DataStorageServiseService) {}
 
   onSave() {
     this.dataService.setDataRecipes();
