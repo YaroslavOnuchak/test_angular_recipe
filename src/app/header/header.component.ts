@@ -14,9 +14,7 @@ export class HeaderComponent {
   onSave() {
     this.dataService.setDataRecipes();
   }
-
   onFetchData(){
-    this.dataService.fetchDataRecips()
-    .subscribe()
+    this.dataService.fetchDataRecips().subscribe()
   }
 }
