@@ -19,7 +19,8 @@ import { ResipeEditComponent } from "./recipes/resipe-edit/resipe-edit.component
 import { ShopService } from "./core/services/RecipeShop/recipe-shop.service";
 import { DataStorageServiseService } from "./shared/data-storage-servise.service";
 
-import { HttpClientModule } from "@angular/common/http"
+import { HttpClientModule } from "@angular/common/http";
+import { AuthComponent } from './auth/auth/auth.component'
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HttpClientModule } from "@angular/common/http"
     DropdownDirective,
     ResipeStartComponent,
     ResipeEditComponent,
+    AuthComponent,
   ],
   imports: [
     FormsModule,
