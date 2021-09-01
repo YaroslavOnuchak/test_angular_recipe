@@ -9,7 +9,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class HeaderComponent {
  @Output() back = new  EventEmitter<any>()
-  //neww
   constructor(
     private dataService: DataStorageServiseService,
     private router :Router,
