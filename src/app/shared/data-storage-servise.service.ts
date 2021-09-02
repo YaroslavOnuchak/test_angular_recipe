@@ -11,7 +11,7 @@ export class DataStorageServiseService {
 
   constructor(
     private http: HttpClient,
-    private recipeServise: RecipeServiseService) 
+    private recipeServise: RecipeServiseService)
     {}
 
 
@@ -29,7 +29,8 @@ export class DataStorageServiseService {
           return recipes.map(el => {
             return {...el, ingrediends: el.ingrediends ? el.ingrediends : []}
           })
-        }), tap(res => {
+        }),
+        tap(res => {
             this.recipeServise.setRecipes(res)
           }
         )
