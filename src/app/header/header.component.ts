@@ -10,7 +10,7 @@ export class HeaderComponent {
   constructor(
     private dataService: DataStorageServiseService,
     private router :Router,
-              private  route:ActivatedRoute
+    private  route:ActivatedRoute
   ) {}
 
   onSave() {
