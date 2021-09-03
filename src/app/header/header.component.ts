@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: "./header.component.html",
 })
 export class HeaderComponent {
- @Output() back = new  EventEmitter<any>()z
+ @Output() back = new  EventEmitter<any>()
   //neww
   constructor(
     private dataService: DataStorageServiseService,
@@ -19,9 +19,6 @@ export class HeaderComponent {
   onSave() {
     this.dataService.setDataRecipes();
   }
-
-
-  
 
   onFetchData(){
     this.dataService.fetchDataRecips().subscribe()
