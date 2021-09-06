@@ -1,6 +1,6 @@
 import { Component, Output } from "@angular/core";
 import { EventEmitter } from "@angular/core";
-import { DataStorageServiseService } from "../shared/data-storage-servise.service";
+import { DataStorageServiseService } from "../../core/services/data-storage-servise.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

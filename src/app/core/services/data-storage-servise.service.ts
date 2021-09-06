@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {RecipeServiseService} from '../core/services/recipe-servise.service';
-import {Recipe} from '../recipes/recipe.model';
+import {RecipeServiseService} from './recipe-servise.service';
+import {Recipe} from '../../modul/recipes/recipe.model';
 import {map, tap} from "rxjs/operators";
 
 @Injectable({
@@ -35,6 +35,5 @@ export class DataStorageServiseService {
           }
         )
       )
-
   }
 }

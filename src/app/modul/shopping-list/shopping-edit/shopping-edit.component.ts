@@ -7,8 +7,8 @@ import {
   Output, OnDestroy
 } from '@angular/core';
 
-import {Ingredient} from '../../shared/ingredient.model';
-import {ShopService} from "../../core/services/RecipeShop/recipe-shop.service";
+import {Ingredient} from '../../../shared/ingredient.model';
+import {ShopService} from "../../../core/services/recipe-shop.service";
 import {NgForm} from "@angular/forms";
 import {Subscription} from "rxjs";
 

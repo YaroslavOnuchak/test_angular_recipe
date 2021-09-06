@@ -2,6 +2,8 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {pluck, take} from "rxjs/operators";
+import {AuthResponseData, AuthServiceService} from "../../core/services/auth-service.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +17,7 @@ export class AuthComponent implements OnInit {
   loading: boolean = false;
   submitted: boolean = false;
   error: string = '';
-
+  isLoginMode: boolean = true
 
   user: any;
   userDetails: any;
@@ -23,7 +25,7 @@ export class AuthComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    // private authGuardService: AuthGuardService,
+    private authService: AuthServiceService,
     // private store: Store,
     private ref: ChangeDetectorRef,
     // private authSocialSer: SocialAuthService
@@ -42,7 +44,32 @@ export class AuthComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode
+  }
+
   onSubmit(event: any): void {
+    if (this.loginForm.invalid) {
+      return
+    }
+    let authObs: Observable<AuthResponseData>;
+
+    this.loading = true;
+    if (this.isLoginMode) {
+      authObs = this.authService.logIn(this.loginForm.value)
+    } else {
+      authObs = this.authService.signUp(this.loginForm.value)
+    }
+    authObs.subscribe(
+      data => {
+        this.loading = false;
+        this.router.navigate(['/recipes'])
+      }, errorMessage => {
+        this.error = errorMessage;
+        this.loading = false;
+      }
+    )
+    this.loginForm.reset()
     // if (event?.target?.classList?.contains("google-sign-in")) {
     //   this.store.dispatch(new LoginGoogle())
     //     .pipe(take(1), pluck('Data', 'loggedUser'))

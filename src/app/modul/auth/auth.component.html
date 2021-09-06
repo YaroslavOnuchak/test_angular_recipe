@@ -1,7 +1,7 @@
 <div class="container mt-2">
   <div class="card m-auto col-6">
     <div class="card-body">
-      <form [formGroup]="loginForm" >
+      <form [formGroup]="loginForm">
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text"
@@ -25,19 +25,33 @@
         </div>
         <button (click)="onSubmit($event)"
                 [disabled]="loading"
+                [disabled]="!loginForm.valid"
+                type="button"
                 class="btn btn-info simply-log-in">
-          <span *ngIf="loading"
-                class="spinner-border spinner-border-sm mr-1"></span>
-          Login
+          <span *ngIf="loading" class="lds-ellipsis">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span *ngIf="!loading">{{isLoginMode ? 'Login' : 'Sign up'}}</span>
+        </button>
+        <button
+          (click)="onSwitchMode()"
+          [disabled]="loading"
+          type="button"
+          class="btn btn-info simply-log-in mx-2"
+        >Switch to {{isLoginMode ? 'Sign up' : 'Login'}}
         </button>
         <div *ngIf="error"
-             class="alert alert-danger mt-3 mb-0">{{error}}</div>
+             class="alert alert-danger mt-3 mb-0 text-center">{{error}}</div>
         <br/>
         <p class="horizontal-line-text">
           <span>or</span>
         </p>
-        <button class="btn social google-btn google-sign-in"
-                (click)="onSubmit($event)">With google</button>
+        <button type="button" class="btn social google-btn google-sign-in"
+                (click)="onSubmit($event)">With google
+        </button>
       </form>
     </div>
   </div>

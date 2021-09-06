@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 
 import { Recipe } from "../recipe.model";
-import { RecipeServiseService } from "../../core/services/recipe-servise.service";
+import { RecipeServiseService } from "../../../core/services/recipe-servise.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { relative } from "@angular/compiler-cli/src/ngtsc/file_system";
 import { Subscription } from "rxjs";

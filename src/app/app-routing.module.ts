@@ -1,12 +1,12 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {RecipesComponent} from "./recipes/recipes.component";
-import {ShoppingListComponent} from "./shopping-list/shopping-list.component";
-import {RecipeDetailComponent} from "./recipes/recipe-detail/recipe-detail.component";
-import {ResipeStartComponent} from "./recipes/resipe-start/resipe-start.component";
-import {ResipeEditComponent} from "./recipes/resipe-edit/resipe-edit.component";
-import {RecipesResolverServise} from "./shared/recipes-resolver.servise";
-import {AuthComponent} from "./auth/auth/auth.component";
+import {RecipesComponent} from "./modul/recipes/recipes.component";
+import {ShoppingListComponent} from "./modul/shopping-list/shopping-list.component";
+import {RecipeDetailComponent} from "./modul/recipes/recipe-detail/recipe-detail.component";
+import {ResipeStartComponent} from "./modul/recipes/resipe-start/resipe-start.component";
+import {ResipeEditComponent} from "./modul/recipes/resipe-edit/resipe-edit.component";
+import {RecipesResolverServise} from "./core/services/recipes-resolver.servise";
+import {AuthComponent} from "./modul/auth/auth.component";
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
