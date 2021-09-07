@@ -38,9 +38,11 @@ button.btn-primary {
   /* Non-prefixed version, currently
                          not supported by any browser */
 }
-button[type='button']{
+
+button[type='button'] {
   overflow: hidden;
 }
+
 // spinerrr
 //
 .lds-ellipsis {
@@ -63,7 +65,7 @@ button[type='button']{
 }
 
 .lds-ellipsis span:nth-child(1) {
-  left:0px;
+  left: 0px;
   animation: lds-ellipsis1 0.6s infinite;
 }
 
@@ -110,3 +112,18 @@ button[type='button']{
 }
 
 //
+picture img.img-detail {
+  shape-outside: circle(50%);
+  margin-top: 1rem;
+  float: right;
+  object-fit: cover;
+  width: 40%;
+  aspect-ratio: 1/1;
+  filter: drop-shadow(0 0 0.5rem #10fa06);
+  border-radius: 50%;
+  transition: 0.5s;
+  &:hover {
+    border-radius: 0;
+    shape-outside: circle(0%);
+  }
+}
