@@ -1,8 +1,9 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {catchError, tap} from "rxjs/operators";
-import {Subject, throwError,} from "rxjs";
-import {User} from "./user.model";
+import {BehaviorSubject, Subject, throwError,} from "rxjs";
+import {User} from "../../shared/user.model";
+import {Router, RouterLink} from "@angular/router";
 
 export interface AuthResponseData {
   idToken: string,
@@ -18,10 +19,29 @@ export interface AuthResponseData {
   providedIn: 'root'
 })
 
-export class AuthServiceService {
-  user = new Subject<User>()
+export class AuthService {
+  user = new BehaviorSubject<User>(null)
 
-  constructor(private http: HttpClient) {
+  tokenExpirationTimer: number = null
+  token: string = null
+
+  constructor(private http: HttpClient, private router: Router) {
+  }
+
+  logOut() {
+    this.user.next(null)
+    this.router.navigate(['/auth'])
+    localStorage.removeItem('userDate')
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer)
+    }
+    this.tokenExpirationTimer = null
+  }
+
+  autoLogOut(expirationDuration) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logOut();
+    }, expirationDuration)
   }
 
   signUp(data) {
@@ -60,6 +80,7 @@ export class AuthServiceService {
       ),
       tap(
         resData => {
+          console.log(resData.expiresIn)
           this.handlerAuth(
             resData.email,
             resData.localId,
@@ -87,6 +108,32 @@ export class AuthServiceService {
       etxpirationDate
     );
     this.user.next(user)
+    this.autoLogOut(etxpiresIn * 1000)
+    localStorage.setItem('userDate', JSON.stringify(user))
+  }
+
+  autoLogin() {
+    const userDate: {
+      email: string,
+      id: string,
+      _token: string,
+      _tokenExpirationDate: string
+    } = JSON.parse(localStorage.getItem('userDate'))
+    if (!userDate) {
+      return
+    }
+    const loaderUser = new User(
+      userDate.email,
+      userDate.id,
+      userDate._token,
+      new Date(userDate._tokenExpirationDate)
+    )
+    if (loaderUser.token) {
+      this.user.next(loaderUser)
+      const expirationDuration = new Date(userDate._tokenExpirationDate).getTime() - new Date().getTime()
+      this.autoLogOut(expirationDuration)
+      this.router.navigate(['/recipes'])
+    }
   }
 
   private handlerError(error: HttpErrorResponse) {

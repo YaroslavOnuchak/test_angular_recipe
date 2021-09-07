@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {pluck, take} from "rxjs/operators";
-import {AuthResponseData, AuthServiceService} from "../../core/services/auth-service.service";
+import {AuthResponseData, AuthService} from "../../core/services/auth.service";
 import {Observable} from "rxjs";
 
 @Component({
@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthServiceService,
+    private authService: AuthService,
     // private store: Store,
     private ref: ChangeDetectorRef,
     // private authSocialSer: SocialAuthService
@@ -38,6 +38,7 @@ export class AuthComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.authService.autoLogin()
   }
 
   get formFields() {

@@ -6,16 +6,21 @@
 >
   <div class="pull-left" style="width: 70%;">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
-    <p class="list-group-item-text">{{ recipe.description }}</p>
+    <p
+      class="list-group-item-text"
+      [style]="{
+      'display': '-webkit-box',
+       '-webkit-box-orient': 'vertical',
+        '-webkit-line-clamp': '3',
+         'overflow': 'hidden'}">{{ recipe.description }}</p>
   </div>
-
-        <img
-          [src]="recipe.imagePath"
-          alt="{{ recipe.name }}"
-          class="img-responsive"
-          style="max-height: 50px;
+  <img
+    [src]="recipe.imagePath"
+    alt="{{ recipe.name }}"
+    class="img-responsive"
+    style="max-height: 80px;
           object-fit: cover;
           border-radius: 1rem;
-              aspect-ratio: 1/1;
+          aspect-ratio: 1/1;
           filter: drop-shadow(0px 0px 1rem #8B0000FF)">
-      </a>
+</a>

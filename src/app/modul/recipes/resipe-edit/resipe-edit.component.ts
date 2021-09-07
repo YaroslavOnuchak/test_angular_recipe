@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { RecipeServiseService } from "../../../core/services/recipe-servise.service";
+import { RecipeService } from "../../../core/services/recipe.service";
 
 @Component({
   selector: "app-resipe-edit",
@@ -15,7 +15,7 @@ export class ResipeEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private resepiServi: RecipeServiseService,
+    private resepiServi: RecipeService,
     private fb: FormBuilder,
     private router: Router
   ) {}

@@ -6,8 +6,8 @@ import {
   OnDestroy,
 } from "@angular/core";
 
-import { Recipe } from "../recipe.model";
-import { RecipeServiseService } from "../../../core/services/recipe-servise.service";
+import { Recipe } from "../../../shared/recipe.model";
+import { RecipeService } from "../../../core/services/recipe.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { relative } from "@angular/compiler-cli/src/ngtsc/file_system";
 import { Subscription } from "rxjs";
@@ -22,7 +22,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private recipeService: RecipeServiseService,
+    private recipeService: RecipeService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
