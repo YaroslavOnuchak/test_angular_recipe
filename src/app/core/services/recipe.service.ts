@@ -1,8 +1,11 @@
-import { Injectable, EventEmitter } from "@angular/core";
-import { Recipe } from "../../shared/recipe.model";
-import { Ingredient } from "src/app/shared/ingredient.model";
-import { ShopService } from "./recipe-shop.service";
-import { Subject } from "rxjs";
+import {Injectable, EventEmitter} from "@angular/core";
+import {Recipe} from "../../shared/recipe.model";
+import {Ingredient} from "src/app/shared/ingredient.model";
+import {ShopService} from "./recipe-shop.service";
+import {Subject} from "rxjs";
+import {Store} from "@ngrx/store";
+import {AddIngredients} from "../../shared/store/shopping-list.action";
+import * as ShoppingListAction from "../../shared/store/shopping-list.action";
 
 @Injectable({
   providedIn: "root",
@@ -11,16 +14,18 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   recipeSelected = new EventEmitter<Recipe>();
 
-  private recipes: Recipe[] = [
-  ];
+  private recipes: Recipe[] = [];
 
-  constructor(private shoppingService: ShopService) {}
+  constructor(private shoppingService: ShopService,
+              private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>) {
+  }
 
-  setRecipes(recipes:Recipe[]){
+  setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice())
 
   }
+
   getRecipes(): Recipe[] {
     return this.recipes.slice();
   }
@@ -31,8 +36,9 @@ export class RecipeService {
 
   addIngrediendsToShoppingList(ingrediends: Ingredient[]) {
     if (ingrediends.length > 0) {
-      console.log(ingrediends);
-      this.shoppingService.addIngrediends(ingrediends);
+      // console.log(ingrediends);
+      // this.shoppingService.addIngrediends(ingrediends);
+      this.store.dispatch(new ShoppingListAction.AddIngredients(ingrediends))
     }
   }
 
@@ -50,6 +56,7 @@ export class RecipeService {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
   }
+
   deleteIngredient(index: number) {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());

@@ -20,9 +20,11 @@ import {ShopService} from "./core/services/recipe-shop.service";
 import {DataStorageService} from "./core/services/data-storage.service";
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { StoreModule} from "@ngrx/store";
 import {AuthComponent} from './modul/auth/auth.component'
 import {AuthService} from "./core/services/auth.service";
 import {AuthInterceptorService} from "./shared/auth-interceptor.service";
+import {ShopReducer} from "./shared/store/shopping-list.reducer";
 
 @NgModule({
   declarations: [
@@ -45,13 +47,15 @@ import {AuthInterceptorService} from "./shared/auth-interceptor.service";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({shoppingList:ShopReducer})
   ],
-  providers: [RecipeService, ShopService, DataStorageService, AuthService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptorService,
-    multi:true
-  }],
+  providers: [RecipeService, ShopService, AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

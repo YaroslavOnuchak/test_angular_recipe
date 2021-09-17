@@ -18,7 +18,7 @@ export class AuthComponent implements OnInit {
   submitted: boolean = false;
   error: string = '';
   isLoginMode: boolean = true
-
+  arr = ["carrots", "onions", "onions", "onions", "brocoli", "apples", "oranges", "brocoli", "apples"]
   user: any;
   userDetails: any;
 
@@ -33,6 +33,28 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    let obj = {}
+    this.arr.sort().forEach(el => {
+      obj[el] = obj[el]  ? ++obj[el] : obj[el] = 1
+    })
+    console.log(obj)
+    let nArr = []
+
+    while (Object.keys(obj).length) {
+      let max = 0
+      let maxKey = ''
+      for (let key in obj) {
+        if (obj[key] > max) {
+          max = obj[key]
+          maxKey = key
+        }
+      }
+      nArr.push(maxKey)
+      delete obj[maxKey]
+    }
+    console.log(nArr)
+
     // this.store.dispatch(new CheckLoggedUser());
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],

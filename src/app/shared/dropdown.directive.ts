@@ -7,7 +7,6 @@ export class DropdownDirective {
   @HostBinding('class.show') isOpen = false;
 
   @HostListener('document:click', ['$event']) toggleOpen(event: Event) {
-    console.log('direc')
     this.isOpen = this.elRef.nativeElement.contains(event.target) ? !this.isOpen : false;
     if (this.isOpen) {
           this.render?.addClass(this.render.nextSibling(this.elRef.nativeElement), 'show')
