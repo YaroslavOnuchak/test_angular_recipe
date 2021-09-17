@@ -9,6 +9,8 @@ export const DELETE_INGREDIENDT = 'DELETE_INGREDIENDT';
 export class AddIngredient implements Action {
   readonly type = ADD_INGREDIEND;
 
+
+
   // payload: Ingredient
   constructor(public payload: Ingredient) {
   }
