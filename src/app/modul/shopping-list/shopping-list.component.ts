@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 
 import {Ingredient} from '../../shared/ingredient.model';
 import {ShopService} from "../../core/services/recipe-shop.service";
+import * as ShoppingAction from "../../shared/store/shopping-list.action"
+import * as fromApp from '../../shared/store/app.reducer';
 
 @Component({
   selector: 'app-shopping-list',
@@ -15,7 +17,8 @@ export class ShoppingListComponent implements OnInit {
 
   constructor(
     private shopListService: ShopService,
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+    // private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+  private store: Store<fromApp.AppState>
   ) {
   }
 
@@ -31,7 +34,8 @@ export class ShoppingListComponent implements OnInit {
   }
 
   onEditItem(index: number) {
-    this.shopListService.staredEditing.next(index)
+    this.store.dispatch(new ShoppingAction.StartEdit(index));
+    // this.shopListService.staredEditing.next(index)
   }
 
 

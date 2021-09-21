@@ -25,6 +25,7 @@ import {AuthComponent} from './modul/auth/auth.component'
 import {AuthService} from "./core/services/auth.service";
 import {AuthInterceptorService} from "./shared/auth-interceptor.service";
 import {ShopReducer} from "./shared/store/shopping-list.reducer";
+import * as fromApp from './shared/store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {ShopReducer} from "./shared/store/shopping-list.reducer";
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({shoppingList:ShopReducer})
+    StoreModule.forRoot(fromApp.appReducer)
+    // StoreModule.forRoot({shoppingList:ShopReducer})
   ],
   providers: [RecipeService, ShopService, AuthService,
     {

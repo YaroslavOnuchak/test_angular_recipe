@@ -6,18 +6,20 @@ import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import {AddIngredients} from "../../shared/store/shopping-list.action";
 import * as ShoppingListAction from "../../shared/store/shopping-list.action";
-
+import * as fromApp from '../../shared/store/app.reducer';
 @Injectable({
   providedIn: "root",
 })
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
-  recipeSelected = new EventEmitter<Recipe>();
+  // recipeSelected = new EventEmitter<Recipe>();
 
   private recipes: Recipe[] = [];
 
-  constructor(private shoppingService: ShopService,
-              private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>) {
+  constructor(
+    // private shoppingService: ShopService,
+    private store: Store<fromApp.AppState>
+  ) {
   }
 
   setRecipes(recipes: Recipe[]) {

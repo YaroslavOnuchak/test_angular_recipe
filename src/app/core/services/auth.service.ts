@@ -4,6 +4,7 @@ import {catchError, tap} from "rxjs/operators";
 import {BehaviorSubject, Subject, throwError,} from "rxjs";
 import {User} from "../../shared/user.model";
 import {Router, RouterLink} from "@angular/router";
+import {Store} from "@ngrx/store";
 
 export interface AuthResponseData {
   idToken: string,
@@ -22,10 +23,14 @@ export interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User>(null)
 
-  tokenExpirationTimer: number = null
+  private tokenExpirationTimer: number = null
   token: string = null
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store
+  ) {
   }
 
   logOut() {
