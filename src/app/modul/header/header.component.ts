@@ -5,6 +5,10 @@ import {Subscription} from "rxjs";
 import {DataStorageService} from "../../core/services/data-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../core/services/auth.service";
+import * as fromApp from "../../shared/store/app.reducer"
+import {Store} from "@ngrx/store";
+import {map} from "rxjs/operators";
+import * as AuthAction from "../../shared/store/auth.actions"
 
 @Component({
   selector: "app-header",
@@ -20,22 +24,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dataService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<fromApp.AppState>
   ) {
   }
 
   ngOnInit() {
-    this.userSub = this.authService.user.subscribe(
+    this.userSub = this.store.select('auth').pipe(
+      map(authUser=>{
+        return authUser.user
+      })
+    ).subscribe(
       user => {
         this.isAuthenticated = !!user
-        console.log(user)
-        console.log(!user)
-        console.log(!!user)
+        // console.log(user)
+        // console.log(!user)
+        // console.log(!!user)
       }
     )
   }
   logOut(){
-    this.authService.logOut()
+    this.store.dispatch(new AuthAction.Logout())
   }
   onSave() {
     this.dataService.setDataRecipes();

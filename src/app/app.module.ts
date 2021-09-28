@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 
+import {StoreDevtoolsModule} from "@ngrx/store-devtools"
 import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./modul/header/header.component";
 import {RecipesComponent} from "./modul/recipes/recipes.component";
@@ -18,14 +19,17 @@ import {ResipeStartComponent} from "./modul/recipes/resipe-start/resipe-start.co
 import {ResipeEditComponent} from "./modul/recipes/resipe-edit/resipe-edit.component";
 import {ShopService} from "./core/services/recipe-shop.service";
 import {DataStorageService} from "./core/services/data-storage.service";
+import {EffectsModule} from "@ngrx/effects";
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import { StoreModule} from "@ngrx/store";
+import {StoreModule} from "@ngrx/store";
 import {AuthComponent} from './modul/auth/auth.component'
 import {AuthService} from "./core/services/auth.service";
 import {AuthInterceptorService} from "./shared/auth-interceptor.service";
 import {ShopReducer} from "./shared/store/shopping-list.reducer";
 import * as fromApp from './shared/store/app.reducer';
+import {AuthEffects} from "./shared/store/auth.effects";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -49,7 +53,9 @@ import * as fromApp from './shared/store/app.reducer';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot(fromApp.appReducer)
+    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot(fromApp.appReducer),
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
     // StoreModule.forRoot({shoppingList:ShopReducer})
   ],
   providers: [RecipeService, ShopService, AuthService,

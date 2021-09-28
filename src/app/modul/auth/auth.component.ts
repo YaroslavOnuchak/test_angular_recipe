@@ -1,66 +1,47 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {pluck, take} from "rxjs/operators";
-import {AuthResponseData, AuthService} from "../../core/services/auth.service";
-import {Observable} from "rxjs";
+
+import {Store} from "@ngrx/store"
+import { Subscription} from "rxjs";
+import * as AuthActions from "../../shared/store/auth.actions";
+import * as fropmApp from "../../shared/store/app.reducer"
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
 
 
   loginForm: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
-  error: string = '';
-  isLoginMode: boolean = true
-  arr = ["carrots", "onions", "onions", "onions", "brocoli", "apples", "oranges", "brocoli", "apples"]
+  error: string = null;
+  isLoginMode: boolean = true;
   user: any;
   userDetails: any;
 
+  private storeSub: Subscription
+
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private authService: AuthService,
-    // private store: Store,
-    private ref: ChangeDetectorRef,
+    private store: Store<fropmApp.AppState>,
     // private authSocialSer: SocialAuthService
   ) {
   }
 
   ngOnInit(): void {
-
-    let obj = {}
-    this.arr.sort().forEach(el => {
-      obj[el] = obj[el]  ? ++obj[el] : obj[el] = 1
-    })
-    console.log(obj)
-    let nArr = []
-
-    while (Object.keys(obj).length) {
-      let max = 0
-      let maxKey = ''
-      for (let key in obj) {
-        if (obj[key] > max) {
-          max = obj[key]
-          maxKey = key
-        }
-      }
-      nArr.push(maxKey)
-      delete obj[maxKey]
-    }
-    console.log(nArr)
-
+    this.storeSub = this.store.select('auth')
+      .subscribe((authSate: any) => {
+        this.loading = authSate.loading;
+        this.error = authSate.authError
+      })
     // this.store.dispatch(new CheckLoggedUser());
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.authService.autoLogin()
   }
 
   get formFields() {
@@ -75,63 +56,35 @@ export class AuthComponent implements OnInit {
     if (this.loginForm.invalid) {
       return
     }
-    let authObs: Observable<AuthResponseData>;
-
+    // let authObs: Observable<AuthResponseData>;
+    const email = this.loginForm.value.username;
+    const password = this.loginForm.value.password;
     this.loading = true;
     if (this.isLoginMode) {
-      authObs = this.authService.logIn(this.loginForm.value)
+      this.store.dispatch(
+        new AuthActions.LoginStart(
+          {
+            email: email,
+            password: password
+          }))
     } else {
-      authObs = this.authService.signUp(this.loginForm.value)
+      this.store.dispatch(
+        new AuthActions.SignUpStart({email: email, password: password})
+      );
     }
-    authObs.subscribe(
-      data => {
-        this.loading = false;
-        this.router.navigate(['/recipes'])
-      }, errorMessage => {
-        this.error = errorMessage;
-        this.loading = false;
-      }
-    )
     this.loginForm.reset()
-    // if (event?.target?.classList?.contains("google-sign-in")) {
-    //   this.store.dispatch(new LoginGoogle())
-    //     .pipe(take(1), pluck('Data', 'loggedUser'))
-    //     .subscribe((loggedUser: User) => {
-    //         if (loggedUser) {
-    //           this.router.navigate(['/main-page']);
-    //         } else {
-    //           this.loading = false;
-    //           this.error = `no user or wrong user/pass`
-    //           return;
-    //         }
-    //       },
-    //       error => {
-    //         this.error = error;
-    //         this.loading = false;
-    //       }
-    //     )
-    // }
-    // else if (event?.target?.classList?.contains("simply-log-in")) {
-    //   this.submitted = this.loading = true;
-    //   this.store.dispatch(new Login(
-    //     this.formFields.username.value,
-    //     this.formFields.password.value)
-    //   )
-    //     .pipe(take(1), pluck('Data', 'loggedUser'))
-    //     .subscribe((loggedUser: User) => {
-    //         if (loggedUser) {
-    //           this.router.navigate(['/main-page']);
-    //         } else {
-    //           this.loading = false;
-    //           this.error = `no user or wrong user/pass`
-    //           return;
-    //         }
-    //       },
-    //       error => {
-    //         this.error = error;
-    //         this.loading = false;
-    //       }
-    //     )
-    // }
+  }
+
+  onHandleError() {
+    this.store.dispatch(new AuthActions.ClearError());
+  }
+
+  ngOnDestroy() {
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
+    }
   }
 }
