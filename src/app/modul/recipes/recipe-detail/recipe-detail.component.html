@@ -4,7 +4,7 @@
     [src]="recipe.imagePath"
     alt="{{ recipe.name }}"
     class="img-responsive img-detail"
-    ></picture>
+  ></picture>
 <div class="row">
   <div class="col-xs-12" style="overflow-x: hidden;  max-height: 15rem">
     {{ recipe.description }}
@@ -33,7 +33,6 @@
 
         <li><a class="dropdown-item"
                style="cursor: pointer"
-               routerLink='edit'
                (click)="onEditRecipe()">Edit Recipe</a></li>
         <li><a class="dropdown-item"
                (click)="onDeleteRecipe()"
@@ -47,7 +46,7 @@
     <ul class="list-group">
       <li
         class="list-group-item"
-        *ngFor="let ingredient of recipe.ingrediends">
+        *ngFor="let ingredient of recipe.ingredients">
         {{ingredient.name}} - {{ingredient.amount}}</li>
     </ul>
   </div>

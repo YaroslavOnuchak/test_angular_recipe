@@ -9,6 +9,7 @@ import * as fromApp from "../../shared/store/app.reducer"
 import {Store} from "@ngrx/store";
 import {map} from "rxjs/operators";
 import * as AuthAction from "../../shared/store/auth.actions"
+import * as RecipeActions from '../../shared/store/recipe/recipe.actions';
 
 @Component({
   selector: "app-header",
@@ -30,32 +31,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userSub = this.store.select('auth').pipe(
-      map(authUser=>{
-        return authUser.user
-      })
-    ).subscribe(
-      user => {
-        this.isAuthenticated = !!user
-        // console.log(user)
-        // console.log(!user)
-        // console.log(!!user)
-      }
-    )
+    this.userSub = this.store.select('auth')
+      .pipe(
+        map(authUser => {
+          return authUser.user
+        })
+      ).subscribe(
+        user => {
+          this.isAuthenticated = !!user
+          // console.log(user)
+          // console.log(!user)
+          // console.log(!!user)
+        }
+      )
   }
-  logOut(){
-    this.store.dispatch(new AuthAction.Logout())
+
+  logOut() {
+    this.test()
   }
+
+  test(): any {
+    return new AuthAction.Logout()
+  }
+
   onSave() {
     this.dataService.setDataRecipes();
   }
 
 
   onFetchData() {
-    this.dataService.fetchDataRecips().subscribe()
-    this.router.navigate(['recipes'], {relativeTo: this.route})
-    this.dataService.fetchDataRecips()
-      .subscribe()
+    // this.dataService.fetchDataRecips().subscribe()
+    // this.router.navigate(['recipes'], {relativeTo: this.route})
+    this.store.dispatch(new RecipeActions.FetchRecipes());
+
   }
 
   ngOnDestroy() {

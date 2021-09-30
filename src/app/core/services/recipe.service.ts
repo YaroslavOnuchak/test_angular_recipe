@@ -36,11 +36,11 @@ export class RecipeService {
     return this.recipes[index];
   }
 
-  addIngrediendsToShoppingList(ingrediends: Ingredient[]) {
-    if (ingrediends.length > 0) {
+  addIngrediendsToShoppingList(ingredients: Ingredient[]) {
+    if (ingredients.length > 0) {
       // console.log(ingrediends);
       // this.shoppingService.addIngrediends(ingrediends);
-      this.store.dispatch(new ShoppingListAction.AddIngredients(ingrediends))
+      this.store.dispatch(new ShoppingListAction.AddIngredients(ingredients))
     }
   }
 

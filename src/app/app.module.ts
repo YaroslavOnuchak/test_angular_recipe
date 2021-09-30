@@ -30,6 +30,8 @@ import {ShopReducer} from "./shared/store/shopping-list.reducer";
 import * as fromApp from './shared/store/app.reducer';
 import {AuthEffects} from "./shared/store/auth.effects";
 import {environment} from "../environments/environment";
+import {RecipeEffects} from "./shared/store/recipe/recipe.effects";
+// import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -53,9 +55,10 @@ import {environment} from "../environments/environment";
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    // StoreRouterConnectingModule.forRoot(),
     // StoreModule.forRoot({shoppingList:ShopReducer})
   ],
   providers: [RecipeService, ShopService, AuthService,

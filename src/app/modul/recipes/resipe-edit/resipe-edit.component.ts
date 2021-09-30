@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RecipeService } from "../../../core/services/recipe.service";
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import * as fromApp from '../../../shared/store/app.reducer';
 
 @Component({
   selector: "app-resipe-edit",
@@ -17,7 +20,8 @@ export class ResipeEditComponent implements OnInit {
     private route: ActivatedRoute,
     private resepiServi: RecipeService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
@@ -31,28 +35,43 @@ export class ResipeEditComponent implements OnInit {
 
   private initForm() {
     let recipe;
-    let ingrediendsArray = new FormArray([]);
+    let ingredientsArray = new FormArray([]);
     if (this.editMode) {
-      recipe = this.resepiServi.getRecipe(this.id);
-      if (recipe["ingrediends"]) {
-        for (let ing of recipe.ingrediends) {
-          ingrediendsArray.push(
-            this.fb.group({
-              name: ing.name,
-              amount: ing.amount,
-            })
-          );
+      this.store
+        .select('recipes')
+        .pipe(
+          map(recipeState => {
+            return recipeState.recipes.find((recipe, index) => {
+              return index === this.id;
+            });
+          })
+        )   .subscribe(recipe => {
+        // recipeName = recipe.name;
+        // recipeImagePath = recipe.imagePath;
+        // recipeDescription = recipe.description;
+        this.recipeForm = this.fb.group({
+          name: [recipe?.name || "", Validators.required],
+          imagePath: [recipe?.imagePath || "", [Validators.required]],
+          description: [recipe?.description || "", []],
+          ingredients: ingredientsArray,
+        });
+        if (recipe["ingredients"]) {
+          for (let ing of recipe.ingredients) {
+            ingredientsArray.push(
+              this.fb.group({
+                name: ing.name,
+                amount: ing.amount,
+              })
+            );
+          }
         }
-      }
+      });
+
+
     } else {
     }
 
-    this.recipeForm = this.fb.group({
-      name: [recipe?.name || "", Validators.required],
-      imagePath: [recipe?.imagePath || "", [Validators.required]],
-      description: [recipe?.description || "", []],
-      ingrediends: ingrediendsArray,
-    });
+
   }
 
   get ingrediendsListArray(): FormArray {
@@ -60,6 +79,7 @@ export class ResipeEditComponent implements OnInit {
   }
 
   onAddIngrediend() {
+
     this.ingrediendsListArray.push(
       this.fb.group({
         name: "",
