@@ -33,7 +33,8 @@ const handleAuthentication = (
     email: email,
     userId: userId,
     idToken: token,
-    etxpiresIn: expirationDate
+    etxpiresIn: expirationDate,
+    redirect: true
   });
 };
 
@@ -105,7 +106,7 @@ export class AuthEffects {
         ),
         map(resData => {
           const expirationDate = new Date(
-            new Date().getTime() + +resData.expiresIn *1000
+            new Date().getTime() + +resData.expiresIn * 1000
           );
           return handleAuthentication(
             +resData.expiresIn,
@@ -129,8 +130,10 @@ export class AuthEffects {
   })
   authRedirect = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
-    tap(() => {
+    tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+      if(authSuccessAction.payload.redirect){
       this.router.navigate(['/recipes'])
+      }
     })
   )
 
@@ -165,7 +168,8 @@ export class AuthEffects {
           email: loadedUser.email,
           userId: loadedUser.id,
           idToken: loadedUser.token,
-          etxpiresIn: new Date(userData._tokenExpirationDate)
+          etxpiresIn: new Date(userData._tokenExpirationDate),
+          redirect: false
         });
         // const expirationDuration =
         //   new Date(userData._tokenExpirationDate).getTime() -

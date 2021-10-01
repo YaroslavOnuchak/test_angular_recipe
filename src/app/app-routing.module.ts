@@ -10,7 +10,7 @@ import {AuthComponent} from "./modul/auth/auth.component";
 import {AuthGuard} from "./core/auth.guard";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'auth', pathMatch: "full"},
+  {path: '', redirectTo: 'recipes', pathMatch: "full"},
   {path: 'auth', component: AuthComponent},
   {
     path: 'recipes', component: RecipesComponent,
@@ -29,7 +29,7 @@ const routes: Routes = [
     ]
   },
   {path: 'shopping', component: ShoppingListComponent}
-  
+
 ]
 
 @NgModule({

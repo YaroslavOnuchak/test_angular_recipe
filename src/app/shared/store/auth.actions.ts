@@ -17,7 +17,8 @@ export class AuthenticateSuccess implements Action {
                 email: string,
                 userId: string,
                 idToken: string,
-                etxpiresIn: Date
+                etxpiresIn: Date,
+                redirect: boolean
               }
   ) {
   }
@@ -61,6 +62,7 @@ export class SignUpStart implements Action {
   }) {
   }
 }
+
 export class ClearError implements Action {
   readonly type = CLEAR_ERROR;
 }

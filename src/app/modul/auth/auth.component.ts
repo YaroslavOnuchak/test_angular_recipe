@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import {Store} from "@ngrx/store"
-import { Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import * as AuthActions from "../../shared/store/auth.actions";
 import * as fropmApp from "../../shared/store/app.reducer"
 

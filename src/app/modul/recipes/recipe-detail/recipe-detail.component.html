@@ -1,13 +1,12 @@
-<picture
->
-  <img
-    [src]="recipe.imagePath"
-    alt="{{ recipe.name }}"
-    class="img-responsive img-detail"
-  ></picture>
 <div class="row">
-  <div class="col-xs-12" style="overflow-x: hidden;  max-height: 15rem">
-    {{ recipe.description }}
+  <div class="col-xs-12">
+    <picture
+    >
+      <img
+        [src]="recipe.imagePath"
+        alt="{{ recipe.name }}"
+        class="img-responsive img-detail"
+      ></picture>
   </div>
 </div>
 <div class="row">
@@ -39,6 +38,11 @@
                style="cursor: pointer">Delete Recipe</a></li>
       </ul>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12" style="overflow-x: hidden;  max-height: 15rem">
+    {{ recipe.description }}
   </div>
 </div>
 <div class="row">

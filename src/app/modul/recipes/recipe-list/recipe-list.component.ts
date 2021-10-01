@@ -11,7 +11,6 @@ import {RecipeService} from "../../../core/services/recipe.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {relative} from "@angular/compiler-cli/src/ngtsc/file_system";
 import {Observable, Subscription} from "rxjs";
-import {DataStorageService} from "../../../core/services/data-storage.service";
 import {Store} from "@ngrx/store";
 import * as fromApp from "../../../shared/store/app.reducer"
 import * as RecipesActions from "../../../shared/store/recipe/recipe.actions";
@@ -27,7 +26,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private dataService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>

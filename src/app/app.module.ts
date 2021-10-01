@@ -18,7 +18,6 @@ import {AppRoutingModule} from "./app-routing.module";
 import {ResipeStartComponent} from "./modul/recipes/resipe-start/resipe-start.component";
 import {ResipeEditComponent} from "./modul/recipes/resipe-edit/resipe-edit.component";
 import {ShopService} from "./core/services/recipe-shop.service";
-import {DataStorageService} from "./core/services/data-storage.service";
 import {EffectsModule} from "@ngrx/effects";
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -26,7 +25,6 @@ import {StoreModule} from "@ngrx/store";
 import {AuthComponent} from './modul/auth/auth.component'
 import {AuthService} from "./core/services/auth.service";
 import {AuthInterceptorService} from "./shared/auth-interceptor.service";
-import {ShopReducer} from "./shared/store/shopping-list.reducer";
 import * as fromApp from './shared/store/app.reducer';
 import {AuthEffects} from "./shared/store/auth.effects";
 import {environment} from "../environments/environment";
