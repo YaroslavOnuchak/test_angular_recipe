@@ -131,8 +131,8 @@ export class AuthEffects {
   authRedirect = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
-      if(authSuccessAction.payload.redirect){
-      this.router.navigate(['/recipes'])
+      if (authSuccessAction.payload.redirect) {
+        this.router.navigate(['/recipes'])
       }
     })
   )
@@ -160,6 +160,7 @@ export class AuthEffects {
 
       if (loadedUser.token) {
         // this.user.next(loadedUser);
+        console.log(loadedUser.token)
         const expirationDuration =
           new Date(userData._tokenExpirationDate).getTime() -
           new Date().getTime();
@@ -169,7 +170,7 @@ export class AuthEffects {
           userId: loadedUser.id,
           idToken: loadedUser.token,
           etxpiresIn: new Date(userData._tokenExpirationDate),
-          redirect: false
+          redirect: true
         });
         // const expirationDuration =
         //   new Date(userData._tokenExpirationDate).getTime() -

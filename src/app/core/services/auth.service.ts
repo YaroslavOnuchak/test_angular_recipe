@@ -22,7 +22,7 @@ export interface AuthResponseData {
 
 export class AuthService {
 
-  private tokenExpirationTimer: number = null
+  private tokenExpirationTimer:  null | ReturnType<typeof setTimeout> = null
   token: string = null
 
   constructor(

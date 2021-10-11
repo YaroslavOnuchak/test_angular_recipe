@@ -29,6 +29,8 @@ import * as fromApp from './shared/store/app.reducer';
 import {AuthEffects} from "./shared/store/auth.effects";
 import {environment} from "../environments/environment";
 import {RecipeEffects} from "./shared/store/recipe/recipe.effects";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ServiceWorkerModule } from '@angular/service-worker';
 // import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
@@ -48,7 +50,7 @@ import {RecipeEffects} from "./shared/store/recipe/recipe.effects";
   ],
   imports: [
     FormsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -56,6 +58,13 @@ import {RecipeEffects} from "./shared/store/recipe/recipe.effects";
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects, RecipeEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     // StoreRouterConnectingModule.forRoot(),
     // StoreModule.forRoot({shoppingList:ShopReducer})
   ],

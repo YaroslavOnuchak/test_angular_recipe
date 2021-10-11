@@ -14,12 +14,12 @@ export class AppComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private store: Store<fromApp.AppState>,
-              @Inject(PLATFORM_ID) private pratformId
+              @Inject(PLATFORM_ID) private platformId
   ) {
   }
 
   ngOnInit() {
-    if (isPlatformBrowser(this.pratformId)) {
+    if (isPlatformBrowser(this.platformId)) {
       console.log('isPlatformBrowser', isPlatformBrowser)
     }
     // this.authService.autoLogin()
