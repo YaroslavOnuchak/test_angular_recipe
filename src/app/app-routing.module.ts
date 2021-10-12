@@ -8,6 +8,7 @@ import {ResipeEditComponent} from "./modul/recipes/resipe-edit/resipe-edit.compo
 import {RecipesResolverServise} from "./core/services/recipes-resolver.servise";
 import {AuthComponent} from "./modul/auth/auth.component";
 import {AuthGuard} from "./core/auth.guard";
+import {UserComponent} from "./modul/user/user.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'recipes', pathMatch: "full"},
@@ -28,7 +29,8 @@ const routes: Routes = [
       },
     ]
   },
-  {path: 'shopping', component: ShoppingListComponent}
+  {path: 'shopping', component: ShoppingListComponent},
+  {path: 'user', component: UserComponent}
 
 ]
 

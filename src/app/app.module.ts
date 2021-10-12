@@ -31,6 +31,7 @@ import {environment} from "../environments/environment";
 import {RecipeEffects} from "./shared/store/recipe/recipe.effects";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {UserComponent} from "./modul/user/user.component";
 // import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ResipeStartComponent,
     ResipeEditComponent,
     AuthComponent,
+    UserComponent
   ],
   imports: [
     FormsModule,
